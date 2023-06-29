@@ -92,7 +92,7 @@ span {
 }
 
 .app {
-    background: #F4F4F4;
+    background: #eaeaea;
 }
 
 .container {
@@ -103,6 +103,12 @@ span {
 }
 
 .left-panel {
+    float: left;
+    width: 40%;
+}
+
+.right-panel {
+    float: right;
     width: 50%;
 }
 
@@ -145,9 +151,7 @@ span {
     height: 100%;
 }
 
-.right-panel {
-    width: 40%;
-}
+
 
 .fact {
     color: black;
