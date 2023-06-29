@@ -20,12 +20,10 @@
                     <h3><span>Logs</span></h3>
                     <ul>
                         <p v-if="mathFact" class="log__title">Math Fact</p>
-                        <p v-if="mathFact" class="timestamp">{{ timestamp }}</p>
                         <li class="mathFact" v-for="fact in mathFactLog" :key="fact">{{ fact }}</li>
                     </ul>
                     <ul>
                         <p v-if="dateFact" class="log__title">Date Fact</p>
-                        <p v-if="mathFact" class="timestamp">{{ timestamp }}</p>
                         <li class="dateFact" v-for="fact in dateFactLog" :key="fact">{{ fact }}</li>
                     </ul>
                 </div>
@@ -68,8 +66,11 @@ const fetchMathFact = async () => {
 const fetchDateFact = async () => {
     try {
         const response = await axios.get('http://numbersapi.com/random/date');
-        dateFact.value = response.data;
-        dateFactLog.value.push(dateFact.value);
+        const fact = response.data;
+        const timestamp = new Date().toLocaleString();
+
+        dateFact.value = fact;
+        dateFactLog.value.push(timestamp, fact);
     } catch (error) {
         console.error(error);
     }
