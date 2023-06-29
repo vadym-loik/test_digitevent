@@ -70,6 +70,7 @@ const fetchDateFact = async () => {
 
 h3 {
     font-weight: 400;
+    margin-bottom: 20px;
 }
 
 span {
@@ -78,7 +79,7 @@ span {
 }
 
 .app {
-    background: grey;
+    background: #F4F4F4;
 }
 
 .container {
@@ -98,6 +99,14 @@ span {
     padding: 16px;
     margin-bottom: 16px;
     background: #fff;
+    position: relative;
+    box-shadow: 1px 7px 5px 0px rgba(0, 0, 0, 0.17);
+}
+
+.ri-arrow-down-circle-line {
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
 
 .log__title {
