@@ -1,23 +1,32 @@
 <template>
     <div class="app">
-        <div class="left-panel">
-            <div class="card">
-                <h2>A cool Maths fact</h2>
-                <p>{{ mathFact }}</p>
-                <i class="ri-arrow-down-circle-line" @click="fetchMathFact"></i>
+        <div class="container">
+            <div class="left-panel">
+                <div class="card">
+                    <h2>A cool Maths fact</h2>
+                    <i class="ri-arrow-down-circle-line" @click="fetchMathFact"></i>
+                    <p>{{ mathFact }}</p>
+
+                </div>
+                <div class="card">
+                    <h2>A cool Date fact</h2>
+                    <i class="ri-arrow-down-circle-line" @click="fetchDateFact"></i>
+                    <p>{{ dateFact }}</p>
+
+                </div>
             </div>
-            <div class="card">
-                <h2>A cool Date fact</h2>
-                <p>{{ dateFact }}</p>
-                <i class="ri-arrow-down-circle-line" @click="fetchDateFact"></i>
-            </div>
-        </div>
-        <div class="right-panel">
-            <div class="card">
-                <h2>Logs</h2>
-                <ul>
-                    <li class="fact" v-for="fact in factLog" :key="fact">{{ fact }}</li>
-                </ul>
+            <div class="right-panel">
+                <div class="log__card">
+                    <h2>Logs</h2>
+                    <ul>
+                        <p>Math Fact</p>
+                        <li class="mathFact" v-for="fact in mathFactLog" :key="fact">{{ fact }}</li>
+                    </ul>
+                    <ul>
+                        <p>Date Fact</p>
+                        <li class="dateFact" v-for="fact in dateFactLog" :key="fact">{{ fact }}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -25,29 +34,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const mathFact = ref('');
 const dateFact = ref('');
-const factLog = ref<string[]>([]);
-
-console.log(factLog.value);
 
 
-interface FactResponse {
-    data: string;
-}
+const mathFactLog = ref<string[]>([]);
+const dateFactLog = ref<string[]>([]);
 
 const fetchMathFact = async () => {
     try {
-        const response: AxiosResponse<FactResponse> = await axios.get('http://numbersapi.com/random/math');
-
-        // console.log(response);
-
-        mathFact.value = response.data.data;
-        // console.log(mathFact.value);
-
-        factLog.value.push(mathFact.value);
+        const response = await axios.get('http://numbersapi.com/random/math');
+        mathFact.value = response.data;
+        mathFactLog.value.push(mathFact.value);
     } catch (error) {
         console.error(error);
     }
@@ -55,14 +55,9 @@ const fetchMathFact = async () => {
 
 const fetchDateFact = async () => {
     try {
-        const response: AxiosResponse<FactResponse> = await axios.get('http://numbersapi.com/random/date');
-
-        // console.log(response);
-
-        dateFact.value = response.data.data;
-        // console.log(dateFact.value);
-
-        factLog.value.push(dateFact.value);
+        const response = await axios.get('http://numbersapi.com/random/date');
+        dateFact.value = response.data;
+        dateFactLog.value.push(dateFact.value);
     } catch (error) {
         console.error(error);
     }
@@ -72,10 +67,16 @@ const fetchDateFact = async () => {
 <style lang="scss" scoped>
 @import '../assets/scss/variables.scss';
 
+
 .app {
     background: grey;
+}
+
+.container {
     display: flex;
     justify-content: space-between;
+    margin: 30px;
+    padding: 30px;
 }
 
 .left-panel {
@@ -83,6 +84,14 @@ const fetchDateFact = async () => {
 }
 
 .card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fff;
+}
+
+.log__card {
     border: 1px solid #ccc;
     padding: 16px;
     margin-bottom: 16px;
