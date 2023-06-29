@@ -3,13 +3,13 @@
         <div class="container">
             <div class="left-panel">
                 <div class="card">
-                    <h2>A cool Maths fact</h2>
+                    <h3>A cool <span>Maths</span> fact</h3>
                     <i class="ri-arrow-down-circle-line" @click="fetchMathFact"></i>
                     <p>{{ mathFact }}</p>
 
                 </div>
                 <div class="card">
-                    <h2>A cool Date fact</h2>
+                    <h3>A cool <span>Date</span> fact</h3>
                     <i class="ri-arrow-down-circle-line" @click="fetchDateFact"></i>
                     <p>{{ dateFact }}</p>
 
@@ -17,13 +17,13 @@
             </div>
             <div class="right-panel">
                 <div class="log__card">
-                    <h2>Logs</h2>
+                    <h3><span>Logs</span></h3>
                     <ul>
-                        <p>Math Fact</p>
+                        <p v-if="mathFact" class="log__title">Math Fact</p>
                         <li class="mathFact" v-for="fact in mathFactLog" :key="fact">{{ fact }}</li>
                     </ul>
                     <ul>
-                        <p>Date Fact</p>
+                        <p v-if="dateFact" class="log__title">Date Fact</p>
                         <li class="dateFact" v-for="fact in dateFactLog" :key="fact">{{ fact }}</li>
                     </ul>
                 </div>
@@ -68,6 +68,15 @@ const fetchDateFact = async () => {
 @import '../assets/scss/variables.scss';
 
 
+h3 {
+    font-weight: 400;
+}
+
+span {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 .app {
     background: grey;
 }
@@ -91,11 +100,17 @@ const fetchDateFact = async () => {
     background: #fff;
 }
 
+.log__title {
+    color: black;
+    font-weight: 600;
+}
+
 .log__card {
     border: 1px solid #ccc;
     padding: 16px;
     margin-bottom: 16px;
     background: #fff;
+    height: 100%;
 }
 
 .right-panel {
